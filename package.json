@@ -1,0 +1,26 @@
+{
+  "name": "yeah-dash",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@geist-ui/core": "^2.3.8",
+    "@preact/signals": "^1.1.3",
+    "i18next": "^22.4.6",
+    "i18next-browser-languagedetector": "^7.0.1",
+    "i18next-http-backend": "^2.1.1",
+    "preact": "^10.11.3",
+    "preact-router": "^4.1.0",
+    "react-i18next": "^12.1.1",
+    "react-router-dom": "^6.6.1"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.4.0",
+    "vite": "^4.0.0"
+  }
+}
