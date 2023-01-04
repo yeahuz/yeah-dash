@@ -1,5 +1,9 @@
 {
   "yes": "Ha",
   "no": "Yoq",
-  "all": "Barchasi"
+  "all": "Barchasi",
+  "status": "Holat",
+  "createdAt": "Yaratilgan",
+  "delete": "O'chirish",
+  "actions": "Harakatlar"
 }

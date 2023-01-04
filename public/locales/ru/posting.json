@@ -1,4 +1,11 @@
 {
   "chooseStatus": "Выберите статус",
-  "postings": "Объявления"
+  "postings": "Объявления",
+  "title": "Название",
+  "description": "Описание",
+  "price": "Цена",
+  "priceDisplay": "{{price}} сум",
+  "location": "Местоположение",
+  "index": "Индексировать",
+  "changeStatus": "Изменить статус"
 }

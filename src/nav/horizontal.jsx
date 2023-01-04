@@ -1,4 +1,4 @@
-import { Tabs, Grid, Text, Spacer, User, Button, useModal, Modal } from "@geist-ui/core";
+import { Tabs, Grid, Text, Spacer, User, Button, useModal, Modal, Note } from "@geist-ui/core";
 import { useContext } from "preact/hooks";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { AuthContext } from "../auth/state.jsx";
@@ -30,7 +30,7 @@ export function HorizontalNav() {
         </Modal.Title>
         <Modal.Content>
           {error ? (
-            <Text blockquote font="0.875rem">{error.message}</Text>
+            <Note type="error" label={false}>{error.message}</Note>
           ) : null}
           <Text>{t("logoutConfirmation", { ns: "auth" })}</Text>
         </Modal.Content>

@@ -5,14 +5,19 @@ import { RenderedRoutes } from "./routes.jsx";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./utils/i18n.js";
 import "./main.css"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 render(
   <Router>
     <GeistProvider>
       <CssBaseline />
-      <AuthProvider>
-        <RenderedRoutes />
-      </AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <RenderedRoutes />
+        </AuthProvider>
+      </QueryClientProvider>
     </GeistProvider>
   </Router>,
   document.getElementById('app'))

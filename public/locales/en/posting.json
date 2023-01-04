@@ -1,4 +1,11 @@
 {
   "chooseStatus": "Choose status",
-  "postings": "Postings"
+  "postings": "Postings",
+  "title": "Title",
+  "description": "Description",
+  "price": "Price",
+  "priceDisplay": "{{price}} som",
+  "location": "Location",
+  "index": "Index",
+  "changeStatus": "Change status"
 }

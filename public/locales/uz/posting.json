@@ -1,4 +1,11 @@
 {
   "chooseStatus": "Holatni tanlang",
-  "postings": "E'lonlar"
+  "postings": "E'lonlar",
+  "title": "Sarlavha",
+  "description": "Tavsif",
+  "price": "Narx",
+  "priceDisplay": "{{price}} so'm",
+  "location": "Joylashuv",
+  "index": "Indekslash",
+  "changeStatus": "Holatni o'zgartirish"
 }

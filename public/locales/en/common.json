@@ -1,5 +1,9 @@
 {
   "yes": "Yes",
   "no": "No",
-  "all": "All"
+  "all": "All",
+  "status": "Status",
+  "createdAt": "Created at",
+  "delete": "Delete",
+  "actions": "Actions"
 }

@@ -1,4 +1,4 @@
-import { Button, Page, Text, Grid, Spacer } from "@geist-ui/core";
+import { Button, Page, Text, Grid, Spacer, Note } from "@geist-ui/core";
 import { useApi } from "../core/useApi.js";
 import { option } from "../utils/option.js";
 import { generateRequest, verifyAssertion } from "../api/auth.js";
@@ -67,7 +67,7 @@ export function Webauthn() {
           <Grid.Container direction="column" alignContent="center" width="20rem" margin="auto">
             <Text h3>{t("2-factor", { ns: "auth" })}</Text>
             {error ? (
-              <Text blockquote font="0.875rem">{error.message}</Text>
+              <Note type="error" label={false}>{error.message}</Note>
             ) : null}
             <Spacer h={1} />
             <Button width="100%" htmlType="submit" loading={isLoading}>{t("useSecurityKey", { ns: "auth" })}</Button>

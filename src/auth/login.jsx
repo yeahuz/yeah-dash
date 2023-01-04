@@ -1,4 +1,4 @@
-import { Button, Page, Text, Input, Grid, Spacer } from "@geist-ui/core";
+import { Button, Page, Text, Input, Grid, Spacer, Note } from "@geist-ui/core";
 import { useApi } from "../core/useApi.js";
 import { option } from "../utils/option.js";
 import { useNavigate } from "react-router-dom";
@@ -35,7 +35,7 @@ export function Login() {
           <Grid.Container direction="column" alignContent="center" width="20rem" margin="auto">
             <Text h3>{t("login", { ns: "auth" })}</Text>
             {error ? (
-              <Text blockquote font="0.875rem">{error.message}</Text>
+              <Note type="error" label={false}>{error.message}</Note>
             ) : null}
             <Input placeholder="juraev@mailinator.com" width="100%" htmlType="email" autoComplete="on" name="identifier" id="identifier">
               {t("email", { ns: "auth" })}
