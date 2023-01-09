@@ -67,7 +67,11 @@ export function Webauthn() {
           <Grid.Container direction="column" alignContent="center" width="20rem" margin="auto">
             <Text h3>{t("2-factor", { ns: "auth" })}</Text>
             {error ? (
-              <Note type="error" label={false}>{error.message}</Note>
+              <>
+                <Spacer h={1} />
+                <Note type="error" label={false}>{error.message}</Note>
+                <Spacer h={1} />
+              </>
             ) : null}
             <Spacer h={1} />
             <Button width="100%" htmlType="submit" loading={isLoading}>{t("useSecurityKey", { ns: "auth" })}</Button>

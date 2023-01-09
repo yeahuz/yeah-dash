@@ -30,7 +30,11 @@ export function HorizontalNav() {
         </Modal.Title>
         <Modal.Content>
           {error ? (
-            <Note type="error" label={false}>{error.message}</Note>
+            <>
+              <Spacer h={1} />
+              <Note type="error" label={false}>{error.message}</Note>
+              <Spacer h={1} />
+            </>
           ) : null}
           <Text>{t("logoutConfirmation", { ns: "auth" })}</Text>
         </Modal.Content>

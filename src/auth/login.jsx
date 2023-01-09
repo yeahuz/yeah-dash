@@ -35,7 +35,11 @@ export function Login() {
           <Grid.Container direction="column" alignContent="center" width="20rem" margin="auto">
             <Text h3>{t("login", { ns: "auth" })}</Text>
             {error ? (
-              <Note type="error" label={false}>{error.message}</Note>
+              <>
+                <Spacer h={1} />
+                <Note type="error" label={false}>{error.message}</Note>
+                <Spacer h={1} />
+              </>
             ) : null}
             <Input placeholder="juraev@mailinator.com" width="100%" htmlType="email" autoComplete="on" name="identifier" id="identifier">
               {t("email", { ns: "auth" })}
