@@ -1,26 +1,14 @@
 import { createContext } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 import { getMe } from "../api/auth.js";
-import { useApi } from "../core/useApi.js";
-import { option } from "../utils/option.js";
+import { useQuery } from "@tanstack/react-query";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
   const isLoggedIn = !!user;
-  const { isLoading, run } = useApi(true);
-
-  const fetchUser = async () => {
-    const [result, err] = await option(run(getMe()));
-    if (!err) {
-      setUser(result);
-    }
-  }
-
-  useEffect(() => {
-    fetchUser();
-  }, [])
+  const { isLoading } = useQuery({ queryKey: ["user"], queryFn: getMe, onSuccess: (user) =>  setUser(user), retry: false });
 
   if (isLoading) return <p>Loading...</p>;
 

@@ -2,10 +2,9 @@ import { Tabs, Grid, Text, Spacer, User, Button, useModal, Modal, Note } from "@
 import { useContext } from "preact/hooks";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { AuthContext } from "../auth/state.jsx";
-import { useApi } from "../core/useApi.js";
 import { logout } from "../api/auth.js";
-import { option } from "../utils/option.js";
 import { useTranslation } from "react-i18next";
+import { useMutation } from "@tanstack/react-query";
 
 export function HorizontalNav() {
   const location = useLocation();
@@ -13,14 +12,11 @@ export function HorizontalNav() {
   const { t } = useTranslation();
   const { user } = useContext(AuthContext);
   const { setVisible, bindings } = useModal();
-  const { isLoading, run, error } = useApi();
 
-  const onLogout = async () => {
-    const [_, err] = await option(run(logout()));
-    if (!err) {
-      navigate("/auth/login");
-    }
-  }
+  const mutation = useMutation({
+    mutationFn: logout,
+    onSuccess: () => navigate("/auth/login")
+  });
 
   return (
     <Grid.Container direction="column">
@@ -29,17 +25,17 @@ export function HorizontalNav() {
           {t("logout", { ns: "auth" })}
         </Modal.Title>
         <Modal.Content>
-          {error ? (
+          {mutation.isError ? (
             <>
               <Spacer h={1} />
-              <Note type="error" label={false}>{error.message}</Note>
+              <Note type="error" label={false}>{mutation.error.message}</Note>
               <Spacer h={1} />
             </>
           ) : null}
           <Text>{t("logoutConfirmation", { ns: "auth" })}</Text>
         </Modal.Content>
-        <Modal.Action passive onClick={() => setVisible(false)} loading={isLoading}>{t("no", { ns: "common" })}</Modal.Action>
-        <Modal.Action onClick={onLogout} loading={isLoading}>{t("yes", { ns: "common" })}</Modal.Action>
+        <Modal.Action passive onClick={() => setVisible(false)} loading={mutation.isLoading}>{t("no", { ns: "common" })}</Modal.Action>
+        <Modal.Action onClick={() => mutation.mutate()} loading={mutation.isLoading}>{t("yes", { ns: "common" })}</Modal.Action>
       </Modal>
       <Spacer h={1} />
       <Grid.Container justify="space-between">

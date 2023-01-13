@@ -1,69 +1,71 @@
 import { Button, Page, Text, Grid, Spacer, Note } from "@geist-ui/core";
-import { useApi } from "../core/useApi.js";
-import { option } from "../utils/option.js";
 import { generateRequest, verifyAssertion } from "../api/auth.js";
 import { decode, encode } from "../utils/base64-url.js";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "preact/hooks";
 import { AuthContext } from "./state.jsx";
 import { useTranslation } from "react-i18next";
+import { useMutation } from "@tanstack/react-query";
 
 export function Webauthn() {
-  const { run, isLoading, error } = useApi();
   const { setUser } = useContext(AuthContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
-
-  const onAuthenticate = async (e) => {
-    e.preventDefault();
-    const [assertionRequest, err] = await option(run(generateRequest({ token: params.get("token") })))
-    if (!err) {
-      assertionRequest.allowCredentials = assertionRequest.allowCredentials.map((credential) => ({
+  const onAuthenticate = async () => {
+    const assertionReq = await generateRequest({ token: params.get("token") });
+      assertionReq.allowCredentials = assertionReq.allowCredentials.map((credential) => ({
         ...credential,
         id: decode(credential.id)
       }))
 
-      const oldChallenge = assertionRequest.challenge;
-      assertionRequest.challenge = decode(assertionRequest.challenge);
+    const oldChallenge = assertionReq.challenge;
+    assertionReq.challenge = decode(assertionReq.challenge);
 
-      const assertion = await window.navigator.credentials.get({
-        publicKey: assertionRequest
-      })
-      const [raw_id, authenticator_data, client_data_json, signature, user_handle] = await Promise.all([
-        encode(assertion.rawId),
-        encode(assertion.response.authenticatorData),
-        encode(assertion.response.clientDataJSON),
-        encode(assertion.response.signature),
-        encode(assertion.response.userHandle),
-      ]);
+    const assertion = await window.navigator.credentials.get({
+      publicKey: assertionReq
+    })
 
-      const [result, verificationErr] = await option(run(verifyAssertion({
-        token: params.get("token"),
-        challenge: oldChallenge,
-        assertion: {
-          id: assertion.id,
-          raw_id,
-          response: {
-            authenticator_data,
-            client_data_json,
-            signature,
-            user_handle,
-          },
-        }
-      })));
+    const [raw_id, authenticator_data, client_data_json, signature, user_handle] = await Promise.all([
+      encode(assertion.rawId),
+      encode(assertion.response.authenticatorData),
+      encode(assertion.response.clientDataJSON),
+      encode(assertion.response.signature),
+      encode(assertion.response.userHandle),
+    ]);
 
-      if (!verificationErr) {
-        setUser(result.user);
-        navigate("/")
+    return await verifyAssertion({
+      token: params.get("token"),
+      challenge: oldChallenge,
+      assertion: {
+        id: assertion.id,
+        raw_id,
+        response: {
+          authenticator_data,
+          client_data_json,
+          signature,
+          user_handle,
+        },
       }
-    }
+    })
   }
+
+  const { mutate, isLoading, error } = useMutation({
+    mutationFn: onAuthenticate,
+    onSuccess: (result) => {
+      setUser(result.user);
+      navigate("/");
+    },
+    onMutate: (e) =>  {
+      e.preventDefault();
+    }
+  })
+
 
   return (
     <Page>
       <Page.Content>
-        <form action="/auth/requests" onSubmit={onAuthenticate}>
+        <form action="/auth/requests" onSubmit={mutate}>
           <Grid.Container direction="column" alignContent="center" width="20rem" margin="auto">
             <Text h3>{t("2-factor", { ns: "auth" })}</Text>
             {error ? (

@@ -1,6 +1,5 @@
 import { Button, Page, Text, Input, Grid, Spacer, Note } from "@geist-ui/core";
-import { useApi } from "../core/useApi.js";
-import { option } from "../utils/option.js";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api/auth.js";
 import { useContext } from "preact/hooks";
@@ -10,15 +9,9 @@ import { useTranslation } from "react-i18next";
 export function Login() {
   const navigate = useNavigate();
   const { setUser } = useContext(AuthContext);
-  const { run, isLoading, error } = useApi();
-  const { t } = useTranslation();
-
-  const onLogin = async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const data = Object.fromEntries(new FormData(form));
-    const [result, err] = await option(run(login(data)));
-    if (!err) {
+  const { mutate, isLoading, error } = useMutation({
+    mutationFn: (data) => login(data),
+    onSuccess: (result) => {
       if (result.has_credential) {
         navigate(`/auth/webauthn?token=${result.token}`)
       } else {
@@ -26,6 +19,13 @@ export function Login() {
         navigate("/")
       }
     }
+  });
+
+  const { t } = useTranslation();
+
+  const onLogin = (e) => {
+    e.preventDefault();
+    mutate(Object.fromEntries(new FormData(e.target)))
   }
 
   return (
