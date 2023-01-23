@@ -5,5 +5,13 @@
   "status": "Holat",
   "createdAt": "Yaratilgan",
   "delete": "O'chirish",
-  "actions": "Harakatlar"
+  "actions": "Harakatlar",
+  "add": "Qo'shish",
+  "cancel": "Bekor qilish",
+  "error": "Xatolik",
+  "list": "Roʻyxat",
+  "typeToConfirm": "Tasdiqlash uchun `{{word}}` soʻzini kiriting",
+  "rowsPerPage": "Har bir sahifadagi qatorlar: {{count}}",
+  "rowsCount_one": "{{count}} qator",
+  "rowsCount_other": "{{count}} qator"
 }

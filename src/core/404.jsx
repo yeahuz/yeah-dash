@@ -1,5 +1,5 @@
-import { Text } from "@geist-ui/core";
+import { EuiText } from "@elastic/eui";
 
 export function NotFound() {
-  return <Text h4>Not found</Text>
+  return <EuiText><h4>Not found</h4></EuiText>
 }

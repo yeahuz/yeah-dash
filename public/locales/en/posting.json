@@ -7,5 +7,9 @@
   "priceDisplay": "{{price}} som",
   "location": "Location",
   "index": "Index",
-  "changeStatus": "Change status"
+  "changeStatus": "Change status",
+  "categories": "Categories",
+  "attributes": "Attributes",
+  "deletePosting": "Delete this posting?",
+  "indexPosting": "Index this posting?"
 }

@@ -7,5 +7,9 @@
   "priceDisplay": "{{price}} so'm",
   "location": "Joylashuv",
   "index": "Indekslash",
-  "changeStatus": "Holatni o'zgartirish"
+  "changeStatus": "Holatni o'zgartirish",
+  "categories": "Kategoriyalar",
+  "attributes": "Atributlar",
+  "deletePosting": "Bu eʼlon oʻchirilsinmi?",
+  "indexPosting": "Bu e'lon indekslansinmi?"
 }

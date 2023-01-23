@@ -7,5 +7,9 @@
   "priceDisplay": "{{price}} сум",
   "location": "Местоположение",
   "index": "Индексировать",
-  "changeStatus": "Изменить статус"
+  "changeStatus": "Изменить статус",
+  "categories": "Категории",
+  "attributes": "Атрибуты",
+  "deletePosting": "Удалить эту публикацию?",
+  "indexPosting": "Индексировать эту публикацию?"
 }

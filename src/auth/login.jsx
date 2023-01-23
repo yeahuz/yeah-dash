@@ -1,10 +1,10 @@
-import { Button, Page, Text, Input, Grid, Spacer, Note } from "@geist-ui/core";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api/auth.js";
 import { useContext } from "preact/hooks";
 import { AuthContext } from "./state.jsx";
 import { useTranslation } from "react-i18next";
+import { EuiFormRow, EuiFieldText, EuiForm, EuiFieldPassword, EuiText, EuiFlexGroup, EuiFlexItem, EuiButton, EuiCallOut, EuiPanel } from "@elastic/eui";
 
 export function Login() {
   const navigate = useNavigate();
@@ -29,30 +29,36 @@ export function Login() {
   }
 
   return (
-    <Page>
-      <Page.Content>
-        <form action="/auth/login" method="post" onSubmit={onLogin}>
-          <Grid.Container direction="column" alignContent="center" width="20rem" margin="auto">
-            <Text h3>{t("login", { ns: "auth" })}</Text>
+    <EuiFlexGroup justifyContent="center" alignItems="center" style={{ minHeight: "100vh" }}>
+      <EuiFlexItem grow={false} style={{ maxWidth: 400, width: "100%" }}>
+        <EuiPanel paddingSize="m">
+          <EuiFlexGroup direction="column" gutterSize="l" style={{ width: "100%" }}>
+            <EuiFlexItem>
+              <EuiText>
+                <h2>{t("login", { ns: "auth" })}</h2>
+              </EuiText>
+            </EuiFlexItem>
             {error ? (
-              <>
-                <Spacer h={1} />
-                <Note type="error" label={false}>{error.message}</Note>
-                <Spacer h={1} />
-              </>
+              <EuiFlexItem>
+                <EuiCallOut title={t("error", { ns: "common" })} color="danger" iconType="alert">
+                  <p> {error.message} </p>
+                </EuiCallOut>
+              </EuiFlexItem>
             ) : null}
-            <Input placeholder="juraev@mailinator.com" width="100%" htmlType="email" autoComplete="on" name="identifier" id="identifier">
-              {t("email", { ns: "auth" })}
-            </Input>
-            <Spacer h={1} />
-            <Input.Password placeholder="complicated-passphrase" width="100%" name="password">
-              {t("password", { ns: "auth" })}
-            </Input.Password>
-            <Spacer h={1} />
-            <Button width="100%" htmlType="submit" loading={isLoading}>{t("login", { ns: "auth" })}</Button>
-          </Grid.Container>
-        </form>
-      </Page.Content>
-    </Page>
+            <EuiFlexItem>
+              <EuiForm component="form" action="/auth/login" method="post" onSubmit={onLogin}>
+                <EuiFormRow label={t("email", { ns: "auth" })}>
+                  <EuiFieldText autoFocus name="identifier" autoComplete="on" id="identifier" placeholder="juraev@mailinator.com" />
+                </EuiFormRow>
+                <EuiFormRow label={t("password", { ns: "auth" })}>
+                  <EuiFieldPassword type="dual" name="password" placeholder="complicated-passphrase" />
+                </EuiFormRow>
+                <EuiButton type="submit" fill fullWidth isLoading={isLoading}>{t("login", { ns: "auth" })}</EuiButton>
+              </EuiForm>
+            </EuiFlexItem>
+          </EuiFlexGroup>
+        </EuiPanel>
+      </EuiFlexItem>
+    </EuiFlexGroup>
   )
 }

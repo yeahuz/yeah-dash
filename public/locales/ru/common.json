@@ -7,5 +7,14 @@
   "delete": "Удалить",
   "index": "Индексировать",
   "changeStatus": "Изменить статус",
-  "actions": "Действия"
+  "actions": "Действия",
+  "add": "Добавить",
+  "cancel": "Отменить",
+  "error": "Ошибка",
+  "list": "Список",
+  "typeToConfirm": "Введите слово `{{word}}` для подтверждения",
+  "rowsPerPage": "Строк на странице: {{count}}",
+  "rowsCount_one": "{{count}} строка",
+  "rowsCount_few": "{{count}} строки",
+  "rowsCount_many": "{{count}} строк"
 }

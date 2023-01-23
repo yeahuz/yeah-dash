@@ -5,6 +5,7 @@ import { Webauthn } from "./auth/webauthn.jsx";
 import { Layout } from "./core/layout.jsx";
 import { NotFound } from "./core/404.jsx";
 import { Postings } from "./posting/list.jsx";
+import { Categories } from "./categories/list.jsx";
 import { Routes, Route, Outlet, useLocation, Navigate } from "react-router-dom";
 
 function ProtectedRoute({ allowed, children }) {
@@ -31,6 +32,7 @@ export function RenderedRoutes() {
       <Route element={<ProtectedRoute allowed={["admin"]} />}>
         <Route path="/" element={<Layout />}>
           <Route path="/postings" element={<Postings />}></Route>
+          <Route path="/categories" element={<Categories />}></Route>
           <Route path="*" element={<NotFound />} />
         </Route>
       </Route>

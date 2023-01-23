@@ -5,5 +5,13 @@
   "status": "Status",
   "createdAt": "Created at",
   "delete": "Delete",
-  "actions": "Actions"
+  "actions": "Actions",
+  "add": "Add",
+  "cancel": "Cancel",
+  "error": "Error",
+  "list": "List",
+  "typeToConfirm": "Type the word `{{word}}` to confirm",
+  "rowsPerPage": "Rows per page: {{count}}",
+  "rowsCount_one": "{{count}} row",
+  "rowsCount_other": "{{count}} rows"
 }

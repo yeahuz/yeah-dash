@@ -1,4 +1,3 @@
-import { Button, Page, Text, Grid, Spacer, Note } from "@geist-ui/core";
 import { generateRequest, verifyAssertion } from "../api/auth.js";
 import { decode, encode } from "../utils/base64-url.js";
 import { useNavigate } from "react-router-dom";
@@ -6,12 +5,14 @@ import { useContext } from "preact/hooks";
 import { AuthContext } from "./state.jsx";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@tanstack/react-query";
+import { EuiFlexGroup, EuiFlexItem, EuiPanel, EuiText, EuiButton } from "@elastic/eui";
 
 export function Webauthn() {
   const { setUser } = useContext(AuthContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
+
   const onAuthenticate = async () => {
     const assertionReq = await generateRequest({ token: params.get("token") });
       assertionReq.allowCredentials = assertionReq.allowCredentials.map((credential) => ({
@@ -55,31 +56,26 @@ export function Webauthn() {
     onSuccess: (result) => {
       setUser(result.user);
       navigate("/");
-    },
-    onMutate: (e) =>  {
-      e.preventDefault();
     }
   })
 
 
   return (
-    <Page>
-      <Page.Content>
-        <form action="/auth/requests" onSubmit={mutate}>
-          <Grid.Container direction="column" alignContent="center" width="20rem" margin="auto">
-            <Text h3>{t("2-factor", { ns: "auth" })}</Text>
-            {error ? (
-              <>
-                <Spacer h={1} />
-                <Note type="error" label={false}>{error.message}</Note>
-                <Spacer h={1} />
-              </>
-            ) : null}
-            <Spacer h={1} />
-            <Button width="100%" htmlType="submit" loading={isLoading}>{t("useSecurityKey", { ns: "auth" })}</Button>
-          </Grid.Container>
-        </form>
-      </Page.Content>
-    </Page>
+    <EuiFlexGroup justifyContent="center" alignItems="center" style={{ minHeight: "100vh" }}>
+      <EuiFlexItem grow={false} style={{ maxWidth: 400, width: "100%" }}>
+        <EuiPanel paddingSize="m">
+          <EuiFlexGroup direction="column" gutterSize="l" style={{ width: "100%" }}>
+            <EuiFlexItem>
+              <EuiText>
+                <h2>{t("2-factor", { ns: "auth" })}</h2>
+              </EuiText>
+            </EuiFlexItem>
+            <EuiFlexItem>
+              <EuiButton autoFocus onClick={mutate} type="submit" fill isLoading={isLoading}>{t("useSecurityKey", { ns: "auth" })}</EuiButton>
+            </EuiFlexItem>
+          </EuiFlexGroup>
+        </EuiPanel>
+      </EuiFlexItem>
+    </EuiFlexGroup>
   )
 }
