@@ -11,5 +11,6 @@
   "categories": "Kategoriyalar",
   "attributes": "Atributlar",
   "deletePosting": "Bu eʼlon oʻchirilsinmi?",
-  "indexPosting": "Bu e'lon indekslansinmi?"
+  "indexPosting": "Bu e'lon indekslansinmi?",
+  "noPostings": "E'lonlar topilmadi"
 }

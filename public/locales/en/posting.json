@@ -11,5 +11,6 @@
   "categories": "Categories",
   "attributes": "Attributes",
   "deletePosting": "Delete this posting?",
-  "indexPosting": "Index this posting?"
+  "indexPosting": "Index this posting?",
+  "noPostings": "No postings found"
 }

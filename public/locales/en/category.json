@@ -3,5 +3,6 @@
   "addSubCategory": "Add subcategory to {{category}}",
   "inRussian": "In russian",
   "inUzbek": "In uzbek",
-  "inEnglish": "In english"
+  "inEnglish": "In english",
+  "deleteCategory": "Delete this category?"
 }

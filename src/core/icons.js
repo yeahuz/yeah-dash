@@ -17,6 +17,9 @@ import { icon as push } from "@elastic/eui/es/components/icon/assets/push";
 import { icon as check } from "@elastic/eui/es/components/icon/assets/check";
 import { icon as empty } from "@elastic/eui/es/components/icon/assets/empty";
 import { icon as dot } from "@elastic/eui/es/components/icon/assets/dot";
+import { icon as plus } from "@elastic/eui/es/components/icon/assets/plus";
+import { icon as plusInCircle } from "@elastic/eui/es/components/icon/assets/plus_in_circle";
+import { icon as plusInCircleFilled } from "@elastic/eui/es/components/icon/assets/plus_in_circle_filled";
 
 appendIconComponentCache({
   arrowDown,
@@ -36,5 +39,8 @@ appendIconComponentCache({
   push,
   check,
   empty,
-  dot
+  dot,
+  plus,
+  plusInCircle,
+  plusInCircleFilled
 })

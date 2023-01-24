@@ -3,5 +3,6 @@
   "addSubCategory": "{{category}} ga pastki kategoriya qo'shish",
   "inRussian": "Rus tilida",
   "inUzbek": "O'zbek tilida",
-  "inEnglish": "Ingliz tilida"
+  "inEnglish": "Ingliz tilida",
+  "deleteCategory": "Bu kategoriya oʻchirilsinmi?"
 }

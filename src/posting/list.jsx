@@ -122,7 +122,15 @@ export function Postings() {
     <>
       <Filters setQuery={setQuery} query={query} />
       <EuiSpacer size="m" />
-      <EuiBasicTable items={postings?.list || []} columns={columns} hasActions={true} isExpandable={true} itemId="id" itemIdToExpandedRowMap={postingsMap} />
+      <EuiBasicTable
+        items={postings?.list || []}
+        columns={columns}
+        hasActions={true}
+        isExpandable={true}
+        itemId="id"
+        itemIdToExpandedRowMap={postingsMap}
+        noItemsMessage={t("noPostings", { ns: "posting" })}
+      />
       <EuiSpacer size="m"/>
       <Pagination rows={[10, 20, 30]} pageSize={10} data={postings} onChange={onPaginate} />
       {deletingPosting ? <DeletePostingModal onCancel={() => setDeletingPosting(null) } /> : null}

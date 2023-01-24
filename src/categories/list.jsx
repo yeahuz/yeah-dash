@@ -1,102 +1,80 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { getMany, createOne } from "../api/category.js";
+import { getMany } from "../api/category.js";
+import { EuiFlexGroup, EuiFlexItem, EuiButtonIcon, EuiToolTip, EuiPanel, EuiButtonEmpty } from "@elastic/eui";
+import { useState } from "preact/hooks";
+import { DeleteCategoryModal } from "./delete-category-modal.jsx";
+import { AddCategoryModal } from "./add-category-modal.jsx";
 
-function unflatten(data) {
-  var result = {}
-  for (var i in data) {
-    var keys = i.split('.')
-    keys.reduce(function(r, e, j) {
-      return r[e] || (r[e] = isNaN(Number(keys[j + 1])) ? (keys.length - 1 == j ? data[i] : {}) : [])
-    }, result)
-  }
-  return result
+function CategoryTree({ data, depth = 0, open = {}, setOpen, parentId, setDeletingCategory, setParentCategory } = {}) {
+  const { t } = useTranslation();
+  return (
+    <EuiFlexGroup direction="column" gutterSize="none">
+      {data?.map((category) => (
+        <EuiFlexItem style={{ display: depth === 0 ? "block" : (open[parentId] ? "block" : "none") }}>
+          <EuiPanel className="euiTableRow" paddingSize="m" hasShadow={false} hasBorder={false} color="transparent" borderRadius="none">
+            <EuiFlexGroup alignItems="center" gutterSize="s">
+              {depth === 0 ? (
+                <EuiFlexItem grow={false} style={{ marginLeft: depth * 32 }}>
+                  <EuiButtonIcon area-label="Expand" iconType={open[category.id] ? "arrowDown" : "arrowRight"} color="text" onClick={() => setOpen(prev => ({ ...prev, [category.id]: !prev[category.id] }))} />
+                </EuiFlexItem>
+              ) : null}
+              <EuiFlexItem grow={false} style={{ marginLeft: !category.children.length ? depth * 32 : 0 }}>
+                {category.title}
+              </EuiFlexItem>
+              <EuiFlexItem grow={false}>
+                <EuiFlexGroup gutterSize="s" alignItems="center">
+                  <EuiFlexItem>
+                    <EuiToolTip position="top" content={t("add", { ns: "common" })}>
+                      <EuiButtonIcon aria-label={t("add", { ns: "common" })} iconType="plusInCircle" onClick={() => setParentCategory(category)}></EuiButtonIcon>
+                    </EuiToolTip>
+                  </EuiFlexItem>
+                  <EuiFlexItem>
+                    <EuiToolTip position="top" content={t("delete", { ns: "common" })}>
+                      <EuiButtonIcon aria-label={t("add", { ns: "common" })} color="danger" iconType="trash" onClick={() => setDeletingCategory(category)}></EuiButtonIcon>
+                    </EuiToolTip>
+                  </EuiFlexItem>
+                </EuiFlexGroup>
+              </EuiFlexItem>
+            </EuiFlexGroup>
+          </EuiPanel>
+          {category.children.length ? <CategoryTree
+            data={category.children}
+            depth={depth + 1}
+            parentId={category.id}
+            open={open}
+            setOpen={setOpen}
+            setDeletingCategory={setDeletingCategory}
+            setParentCategory={setParentCategory}
+          /> : null}
+        </EuiFlexItem>
+      ))}
+    </EuiFlexGroup>
+  )
 }
 
-// function CategoryTree({ data }) {
-//   const { t } = useTranslation();
-//   const { bindings, setVisible } = useModal();
-
-//   return data.map((category) => {
-//     return (
-//       <>
-//         <Tree.Folder name={category.title}>
-//           {category.children.length ? <CategoryTree data={category.children} /> : null}
-//           <Grid>
-//             <Button onClick={() => setVisible(true)} scale={3/4} auto>{t("add", { ns: "common" })}</Button>
-//           </Grid>
-//         </Tree.Folder>
-//       </>
-//     )
-//   });
-// }
-
-// function AddCategoryModal({ category }) {
-//   const { t } = useTranslation();
-//   const mutation = useMutation({ mutationFn: (data) => createOne(data), mutationKey: ["categories"] });
-//   const { bindings, setVisible } = useModal();
-
-//   const onSubmit = (e) => {
-//     e.preventDefault();
-//     mutation.mutate(unflatten(Object.fromEntries(new FormData(e.target))));
-//   }
-
-//   return (
-//     <Modal {...bindings}>
-//       <Modal.Title>
-//         {category ? t("addSubCategory", { ns: "category", category: category.title }) : t("addCategory", { ns: "category" })}
-//       </Modal.Title>
-//       <Modal.Content>
-//         <form onSubmit={onSubmit} method="post">
-//           {category ? (
-//             <input name="parent_id" type="hidden" value={category.id} />
-//           ) : null}
-//           <Grid.Container direction="column" gap={1.5}>
-//             <Grid>
-//               <input name="translation.0.language_code" type="hidden" value="ru" />
-//               <Input placeholder="Недвижимость" name="translation.0.title" width="100%">{t("inRussian", { ns: "category" })}</Input>
-//             </Grid>
-//             <Grid>
-//               <input name="translation.1.language_code" type="hidden" value="uz" />
-//               <Input placeholder="Ko'chmas mulk" name="translation.1.title" width="100%">{t("inUzbek", { ns: "category" })}</Input>
-//             </Grid>
-//             <Grid>
-//               <input name="translation.2.language_code" type="hidden" value="en" />
-//               <Input placeholder="Real estate" name="translation.2.title" width="100%">{t("inEnglish", { ns: "category" })}</Input>
-//             </Grid>
-//             <Grid>
-//               <Button htmlType="submit">Submit</Button>
-//             </Grid>
-//           </Grid.Container>
-//         </form>
-//       </Modal.Content>
-//       <Modal.Action passive onClick={() => setVisible(false)}>{t("cancel", { ns: "common" })}</Modal.Action>
-//       <Modal.Action>{t("add", { ns: "common" })}</Modal.Action>
-//     </Modal>
-//   )
-// }
 
 export function Categories() {
-  const queryClient = useQueryClient();
+  const { data } = useQuery({ queryKey: ["categories"], queryFn: getMany });
+  const [open, setOpen] = useState({})
+  const [deletingCategory, setDeletingCategory] = useState();
+  const [addingCategory, setAddingCategory] = useState();
+  const [parentCategory, setParentCategory] = useState();
   const { t } = useTranslation();
-  const { data, isLoading, error } = useQuery({ queryKey: ["categories"], queryFn: getMany, retry: false });
-  // const { bindings, setVisible } = useModal();
 
   return (
-    <div>Categories</div>
-    // <Grid.Container direction="column" gap={2}>
-    //   <Grid>
-    //     <Tree>
-    //       {data ? <CategoryTree data={data} /> : null}
-    //     </Tree>
-    //   </Grid>
-    //   <Grid>
-    //     <Button auto scale={3/4} onClick={() => setVisible(true)}>{t("add", { ns: "common" })}</Button>
-    //   </Grid>
-    //   <Grid>
-    //     <ButtonGroup scale={2 / 3}>
-    //     </ButtonGroup>
-    //   </Grid>
-    // </Grid.Container>
+    <>
+      <EuiPanel paddingSize="none" hasShadow={false} borderRadius="none">
+        <CategoryTree data={data} open={open} setOpen={setOpen} setDeletingCategory={setDeletingCategory} setParentCategory={setParentCategory} />
+        <EuiPanel paddingSize="m" hasShadow={false} color="transparent">
+          <EuiButtonEmpty iconType="plusInCircleFilled" size="s" aria-label={t("addCategory", { ns: "category" })} onClick={() => setAddingCategory(true)}>{t("addCategory", { ns: "category" })}</EuiButtonEmpty>
+        </EuiPanel>
+      </EuiPanel>
+      {deletingCategory ? <DeleteCategoryModal category={deletingCategory} onCancel={() => setDeletingCategory(null)} /> : null}
+      {addingCategory || parentCategory ? <AddCategoryModal category={parentCategory} onCancel={() => {
+        setAddingCategory(false);
+        setParentCategory(null);
+      }} /> : null}
+    </>
   )
 }
