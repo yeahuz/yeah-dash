@@ -14,32 +14,32 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "preact/hooks";
 import { useTranslation } from "react-i18next";
-import { deleteOne } from "../api/category.js";
+import { deleteOne } from "../api/attribute.js";
 
-export function DeleteCategoryModal({ onCancel, category }) {
+export function DeleteAttributeModal({ onCancel, attribute }) {
   const queryClient = useQueryClient();
   const [value, setValue] = useState("");
   const formId = useGeneratedHtmlId({ prefix: "modalForm" });
   const { t } = useTranslation();
   const mutation = useMutation({
     mutationFn: (id) => deleteOne(id),
-    mutationKey: ["categories"],
+    mutationKey: ["attributes"],
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      queryClient.invalidateQueries({ queryKey: ["attributes"] });
       onCancel();
     }
   });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    mutation.mutate(category.id);
+    mutation.mutate(attribute.id);
   }
 
   return (
     <EuiModal onClose={onCancel}>
       <EuiModalHeader>
         <EuiModalHeaderTitle>
-          <h3>{t("deleteCategory", { ns: "category" })}</h3>
+          <h3>{t("deleteAttribute", { ns: "attribute" })}</h3>
         </EuiModalHeaderTitle>
       </EuiModalHeader>
       <EuiModalBody>

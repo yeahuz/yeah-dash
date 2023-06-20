@@ -131,10 +131,10 @@ export function Postings() {
         itemIdToExpandedRowMap={postingsMap}
         noItemsMessage={t("noPostings", { ns: "posting" })}
       />
-      <EuiSpacer size="m"/>
+      <EuiSpacer size="m" />
       <Pagination rows={[10, 20, 30]} pageSize={10} data={postings} onChange={onPaginate} />
-      {deletingPosting ? <DeletePostingModal onCancel={() => setDeletingPosting(null) } /> : null}
-      {indexingPosting ? <IndexPostingModal onCancel={() => setIndexingPosting(null)} /> : null}
+      {deletingPosting ? <DeletePostingModal onCancel={() => setDeletingPosting(null)} /> : null}
+      {indexingPosting ? <IndexPostingModal posting={indexingPosting} onCancel={() => setIndexingPosting(null)} /> : null}
     </>
   )
 

@@ -55,7 +55,7 @@ function CategoryTree({ data, depth = 0, open = {}, setOpen, parentId, setDeleti
 
 
 export function Categories() {
-  const { data } = useQuery({ queryKey: ["categories"], queryFn: getMany });
+  const { data } = useQuery({ queryKey: ["categories"], queryFn: () => getMany({ format: "tree" }) });
   const [open, setOpen] = useState({})
   const [deletingCategory, setDeletingCategory] = useState();
   const [addingCategory, setAddingCategory] = useState();

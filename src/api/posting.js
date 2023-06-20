@@ -11,3 +11,4 @@ export function getMany(query) {
 export function updateOne(id, update) {
   return instance.request(`/postings/${id}`, { body: update, method: "PATCH" })
 }
+

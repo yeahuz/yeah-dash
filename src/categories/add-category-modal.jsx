@@ -12,62 +12,26 @@ import {
   EuiButton
 } from "@elastic/eui";
 import { useTranslation } from "react-i18next";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createOne } from "../api/category.js";
+import { unflatten } from "../utils/index.js";
 
-
-function unflatten(data) {
-  var result = {}
-  for (var i in data) {
-    var keys = i.split('.')
-    keys.reduce(function (r, e, j) {
-      return r[e] || (r[e] = isNaN(Number(keys[j + 1])) ? (keys.length - 1 == j ? data[i] : {}) : [])
-    }, result)
-  }
-  return result
-}
 export function AddCategoryModal({ onCancel, category }) {
+  const queryClient = useQueryClient();
   const formId = useGeneratedHtmlId({ prefix: "modalForm" });
   const { t } = useTranslation();
-  const mutation = useMutation({ mutationFn: (data) => createOne(data), mutationKey: ["categories"] });
+  const mutation = useMutation({
+    mutationFn: (data) => createOne(data),
+    mutationKey: ["categories"],
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      onCancel();
+  }});
 
   const onSubmit = (e) => {
     e.preventDefault();
     mutation.mutate(unflatten(Object.fromEntries(new FormData(e.target))));
-    onCancel();
   }
-
-//     <Modal {...bindings}>
-//       <Modal.Title>
-//         {category ? t("addSubCategory", { ns: "category", category: category.title }) : t("addCategory", { ns: "category" })}
-//       </Modal.Title>
-//       <Modal.Content>
-//         <form onSubmit={onSubmit} method="post">
-//           {category ? (
-//             <input name="parent_id" type="hidden" value={category.id} />
-//           ) : null}
-//           <Grid.Container direction="column" gap={1.5}>
-//             <Grid>
-//               <input name="translation.0.language_code" type="hidden" value="ru" />
-//               <Input placeholder="Недвижимость" name="translation.0.title" width="100%">{t("inRussian", { ns: "category" })}</Input>
-//             </Grid>
-//             <Grid>
-//               <input name="translation.1.language_code" type="hidden" value="uz" />
-//               <Input placeholder="Ko'chmas mulk" name="translation.1.title" width="100%">{t("inUzbek", { ns: "category" })}</Input>
-//             </Grid>
-//             <Grid>
-//               <input name="translation.2.language_code" type="hidden" value="en" />
-//               <Input placeholder="Real estate" name="translation.2.title" width="100%">{t("inEnglish", { ns: "category" })}</Input>
-//             </Grid>
-//             <Grid>
-//               <Button htmlType="submit">Submit</Button>
-//             </Grid>
-//           </Grid.Container>
-//         </form>
-//       </Modal.Content>
-//       <Modal.Action passive onClick={() => setVisible(false)}>{t("cancel", { ns: "common" })}</Modal.Action>
-//       <Modal.Action>{t("add", { ns: "common" })}</Modal.Action>
-//     </Modal>
 
   return (
     <EuiModal onClose={onCancel}>

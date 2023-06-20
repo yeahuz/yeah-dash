@@ -1,0 +1,12 @@
+{
+  "addAttribute": "Xususiyat qo'shish",
+  "editAttribute": "Xususiyatni tahrirlash",
+  "inRussian": "Rus tilida",
+  "inUzbek": "O'zbek tilida",
+  "inEnglish": "Ingliz tilida",
+  "deleteAttribute": "Bu xususiyatni o'chirish?",
+  "attributeCategories": "Xususiyay kategoriyalari",
+  "chooseAssociatedCategories": "Tegishli toifalarni tanlang",
+  "type": "Turi",
+  "chooseType": "Turni tanlang"
+}

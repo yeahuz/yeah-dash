@@ -1,0 +1,12 @@
+{
+  "addAttribute": "Add attribute",
+  "editAttribute": "Edit attribute",
+  "inRussian": "In russian",
+  "inUzbek": "In uzbek",
+  "inEnglish": "In english",
+  "deleteAttribute": "Delete this attribute?",
+  "attributeCategories": "Attribute categories",
+  "chooseAssociatedCategories": "Choose associated categories",
+  "type": "Type",
+  "chooseType": "Choose type"
+}

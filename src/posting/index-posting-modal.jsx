@@ -1,15 +1,18 @@
 import { useTranslation } from "react-i18next";
 import { EuiConfirmModal } from "@elastic/eui";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateOne } from "../api/posting";
 
-export function IndexPostingModal({ onCancel }) {
+export function IndexPostingModal({ onCancel, posting }) {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const queryClient = useQueryClient()
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: () => console.log("mutate"),
-    onSuccess: () => console.log("confirmed")
+    mutationFn: () => updateOne(posting.id, { status_id: 4 }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["postings"] });
+      onCancel()
+    }
   });
 
   return (

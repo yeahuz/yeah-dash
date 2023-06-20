@@ -1,7 +1,7 @@
 import { instance } from "../utils/request.js";
 
-export function getMany() {
-  return instance.request("/categories");
+export function getMany(query) {
+  return instance.request("/categories", { query });
 }
 
 export function createOne(data) {

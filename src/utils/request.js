@@ -24,7 +24,6 @@ class Request {
       ...customConfig,
       headers: {
         "X-Requested-With": "XMLHttpRequest",
-        "Accept-Language": "en",
         Accept: "application/json",
         ...(!isFormData && body && { "Content-Type": "application/json" }),
         ...customConfig.headers,
@@ -38,7 +37,7 @@ class Request {
 
       switch (accept) {
         case "application/json": {
-          data = await response.json().catch(() => {});
+          data = await response.json().catch(() => { });
           break;
         }
         case "text/html": {

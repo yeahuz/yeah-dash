@@ -1,0 +1,12 @@
+{
+  "addAttribute": "Добавить атрибут",
+  "editAttribute": "Редактировать атрибут",
+  "inRussian": "На русском",
+  "inUzbek": "На узбекском",
+  "inEnglish": "На английском",
+  "deleteAttribute": "Удалить этот атрибут?",
+  "attributeCategories": "Категории атрибута",
+  "chooseAssociatedCategories": "Выберите связанные категории",
+  "type": "Тип",
+  "chooseType": "Выберите тип"
+}
