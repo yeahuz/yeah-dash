@@ -14,7 +14,7 @@ function CategoryTree({ data, depth = 0, open = {}, setOpen, parentId, setDeleti
         <EuiFlexItem style={{ display: depth === 0 ? "block" : (open[parentId] ? "block" : "none") }}>
           <EuiPanel className="euiTableRow" paddingSize="m" hasShadow={false} hasBorder={false} color="transparent" borderRadius="none">
             <EuiFlexGroup alignItems="center" gutterSize="s">
-              {category.children.length ? (
+              {category.children?.length ? (
                 <EuiFlexItem grow={false} style={{ marginLeft: depth * 32 }}>
                   <EuiButtonIcon area-label="Expand" iconType={open[category.id] ? "arrowDown" : "arrowRight"} color="text" onClick={() => setOpen(prev => ({ ...prev, [category.id]: !prev[category.id] }))} />
                 </EuiFlexItem>

@@ -12,7 +12,7 @@ i18n
     preload: ["ru"],
     saveMissing: true,
     supportedLngs: ["ru", "uz", "en"],
-    ns: ["common", "auth", "posting", "category", "attribute"],
+    ns: ["common", "auth", "posting", "category", "attribute", "shipping"],
     backend: {
       loadPath: "/public/locales/{{lng}}/{{ns}}.json",
       addPath: "/public/locales/{{lng}}/{{ns}}.missing.json"

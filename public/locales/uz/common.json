@@ -14,5 +14,9 @@
   "typeToConfirm": "Tasdiqlash uchun `{{word}}` soʻzini kiriting",
   "rowsPerPage": "Har bir sahifadagi qatorlar: {{count}}",
   "rowsCount_one": "{{count}} qator",
-  "rowsCount_other": "{{count}} qator"
+  "rowsCount_other": "{{count}} qator",
+  "logo": "Logo",
+  "description": "Tavsif",
+  "active": "Faol",
+  "inactive": "Faol emas"
 }

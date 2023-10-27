@@ -17,5 +17,9 @@
   "rowsPerPage": "Строк на странице: {{count}}",
   "rowsCount_one": "{{count}} строка",
   "rowsCount_few": "{{count}} строки",
-  "rowsCount_many": "{{count}} строк"
+  "rowsCount_many": "{{count}} строк",
+  "logo": "Логотип",
+  "description": "Описание",
+  "active": "Активный",
+  "inactive": "Не активный"
 }

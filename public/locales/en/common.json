@@ -14,5 +14,9 @@
   "typeToConfirm": "Type the word `{{word}}` to confirm",
   "rowsPerPage": "Rows per page: {{count}}",
   "rowsCount_one": "{{count}} row",
-  "rowsCount_other": "{{count}} rows"
+  "rowsCount_other": "{{count}} rows",
+  "logo": "Logo",
+  "description": "Description",
+  "active": "Active",
+  "inactive": "Inactive"
 }
