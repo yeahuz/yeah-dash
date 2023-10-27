@@ -1,6 +1,6 @@
 {
   "chooseStatus": "Holatni tanlang",
-  "postings": "E'lonlar",
+  "listings": "E'lonlar",
   "title": "Sarlavha",
   "description": "Tavsif",
   "price": "Narx",
@@ -10,7 +10,7 @@
   "changeStatus": "Holatni o'zgartirish",
   "categories": "Kategoriyalar",
   "attributes": "Atributlar",
-  "deletePosting": "Bu eʼlon oʻchirilsinmi?",
-  "indexPosting": "Bu e'lon indekslansinmi?",
-  "noPostings": "E'lonlar topilmadi"
+  "deleteListing": "Bu eʼlon oʻchirilsinmi?",
+  "indexListing": "Bu e'lon indekslansinmi?",
+  "noListings": "E'lonlar topilmadi"
 }

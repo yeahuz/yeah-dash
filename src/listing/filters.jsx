@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
-import { getFilters } from "../api/posting.js";
+import { getFilters } from "../api/listing.js";
 import { EuiHealth, EuiSuperSelect, EuiPanel } from "@elastic/eui";
 
 export function Filters({ setQuery, query }) {

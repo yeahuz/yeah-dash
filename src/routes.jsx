@@ -4,7 +4,7 @@ import { Login } from "./auth/login.jsx";
 import { Webauthn } from "./auth/webauthn.jsx";
 import { Layout } from "./core/layout.jsx";
 import { NotFound } from "./core/404.jsx";
-import { Postings } from "./posting/list.jsx";
+import { Listings } from "./listing/list.jsx";
 import { Categories } from "./categories/list.jsx";
 import { Attributes } from "./attributes/list.jsx";
 import { ShippingServices } from "./shipping/services/list.jsx";
@@ -33,7 +33,7 @@ export function RenderedRoutes() {
     <Routes>
       <Route element={<ProtectedRoute allowed={["ADMIN"]} />}>
         <Route path="/" element={<Layout />}>
-          <Route path="/postings" element={<Postings />}></Route>
+          <Route path="/listings" element={<Listings />}></Route>
           <Route path="/categories" element={<Categories />}></Route>
           <Route path="/attributes" element={<Attributes />}></Route>
           <Route path="/shipping-services" element={<ShippingServices />}></Route>

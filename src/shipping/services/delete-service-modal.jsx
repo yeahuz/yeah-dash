@@ -14,7 +14,7 @@ import {
 import { useState } from "preact/hooks";
 import { useTranslation } from "react-i18next";
 
-export function DeletePostingModal({ onCancel }) {
+export function DeleteServiceModal({ onCancel }) {
   const [value, setValue] = useState("");
   const formId = useGeneratedHtmlId({ prefix: "modalForm" });
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ export function DeletePostingModal({ onCancel }) {
     <EuiModal onClose={onCancel}>
       <EuiModalHeader>
         <EuiModalHeaderTitle>
-          <h3>{t("deletePosting", { ns: "posting" })}</h3>
+          <h3>{t("deleteService", { ns: "shipping" })}</h3>
         </EuiModalHeaderTitle>
       </EuiModalHeader>
       <EuiModalBody>

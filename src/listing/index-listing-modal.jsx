@@ -1,27 +1,27 @@
 import { useTranslation } from "react-i18next";
 import { EuiConfirmModal } from "@elastic/eui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateOne } from "../api/posting";
+import { updateOne } from "../api/listing";
 
-export function IndexPostingModal({ onCancel, posting }) {
+export function IndexListingModal({ onCancel, listing }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient()
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: () => updateOne(posting.id, { status_id: 4 }),
+    mutationFn: () => updateOne(listing.id, { status_id: 4 }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["postings"] });
+      queryClient.invalidateQueries({ queryKey: ["listings"] });
       onCancel()
     }
   });
 
   return (
     <EuiConfirmModal
-      title={t("indexPosting", { ns: "posting" })}
+      title={t("indexListing", { ns: "listing" })}
       onCancel={onCancel}
       onConfirm={mutate}
       cancelButtonText={t("cancel", { ns: "common" })}
-      confirmButtonText={t("index", { ns: "posting" })}
+      confirmButtonText={t("index", { ns: "listing" })}
       defaultFocusedButton="cancel"
       isLoading={isLoading}
     ></EuiConfirmModal>

@@ -3,5 +3,6 @@
   "services": "Hizmatlar",
   "serviceName": "Nom",
   "time": "Yetkazish vaqti",
+  "deleteService": "Bu hizmat oʻchirilsinmi?",
   "noServices": "Hizmatlar topilmadi"
 }

@@ -6,11 +6,11 @@ export function VerticalNav() {
   const { t } = useTranslation();
   return (
     <EuiPageSidebar paddingSize="s">
-      <EuiCollapsibleNavGroup title={t("postings", { ns: "posting" })} isCollapsible={true}>
+      <EuiCollapsibleNavGroup title={t("listings", { ns: "listing" })} isCollapsible={true}>
         <EuiListGroup gutterSize="none" size="s">
-          <CustomListGroupItem href="/postings" id="postings" label={t("list", { ns: "common" })} />
-          <CustomListGroupItem href="/categories" id="categories" label={t("categories", { ns: "posting" })} />
-          <CustomListGroupItem href="/attributes" id="attributes" label={t("attributes", { ns: "posting" })} />
+          <CustomListGroupItem href="/listings" id="listings" label={t("list", { ns: "common" })} />
+          <CustomListGroupItem href="/categories" id="categories" label={t("categories", { ns: "listing" })} />
+          <CustomListGroupItem href="/attributes" id="attributes" label={t("attributes", { ns: "listing" })} />
         </EuiListGroup>
       </EuiCollapsibleNavGroup>
       <EuiCollapsibleNavGroup title={t("title", { ns: "shipping" })} isCollapsible={true}>

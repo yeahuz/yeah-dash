@@ -1,6 +1,6 @@
 {
   "chooseStatus": "Choose status",
-  "postings": "Postings",
+  "listings": "Listings",
   "title": "Title",
   "description": "Description",
   "price": "Price",
@@ -10,7 +10,7 @@
   "changeStatus": "Change status",
   "categories": "Categories",
   "attributes": "Attributes",
-  "deletePosting": "Delete this posting?",
-  "indexPosting": "Index this posting?",
-  "noPostings": "No postings found"
+  "deleteListing": "Delete this listing?",
+  "indexListing": "Index this listing?",
+  "noListings": "No listings found"
 }

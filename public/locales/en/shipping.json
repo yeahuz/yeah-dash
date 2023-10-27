@@ -3,5 +3,6 @@
   "services": "Services",
   "serviceName": "Name",
   "time": "Handling time",
+  "deleteService": "Delete this shipping service",
   "noServices": "Services not found"
 }

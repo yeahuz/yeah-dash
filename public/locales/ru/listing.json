@@ -1,6 +1,6 @@
 {
   "chooseStatus": "Выберите статус",
-  "postings": "Объявления",
+  "listings": "Объявления",
   "title": "Название",
   "description": "Описание",
   "price": "Цена",
@@ -10,7 +10,7 @@
   "changeStatus": "Изменить статус",
   "categories": "Категории",
   "attributes": "Атрибуты",
-  "deletePosting": "Удалить эту публикацию?",
-  "indexPosting": "Индексировать эту публикацию?",
-  "noPostings": "Объявлений не найдено"
+  "deleteListing": "Удалить это обявление?",
+  "indexListing": "Индексировать это объявление?",
+  "noListings": "Объявлений не найдено"
 }

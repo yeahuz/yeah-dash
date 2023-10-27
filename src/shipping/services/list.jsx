@@ -2,10 +2,13 @@ import { EuiBadge, EuiBasicTable, EuiFlexGroup, EuiFlexItem, EuiImage } from "@e
 import { useTranslation } from "react-i18next";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getServices } from "../../api/shipping.js";
+import { DeleteServiceModal } from "./delete-service-modal.jsx";
+import { useState } from "preact/hooks";
 
 export function ShippingServices() {
   let queryClient = useQueryClient();
   let { t } = useTranslation();
+  let [deletingService, setDeletingService] = useState();
 
   let { data: services } = useQuery({ queryKey: ["shipping-services"], queryFn: getServices });
   let columns = [
@@ -29,6 +32,19 @@ export function ShippingServices() {
       field: "active",
       render: (active) => <EuiBadge color={active ? "#027A48" : "#B54708"}>{active ? t("active", { ns: "common" }) : t("inactive", { ns: "common" })}</EuiBadge>
     },
+    {
+      name: t("actions", { ns: "common" }),
+      actions: [
+        {
+          name: t("delete", { ns: "common" }),
+          description: t("delete", { ns: "common" }),
+          onClick: setDeletingService,
+          icon: "trash",
+          color: "danger",
+          type: "icon"
+        }
+      ]
+    }
   ]
 
   return (
@@ -41,6 +57,7 @@ export function ShippingServices() {
         itemId="id"
         noItemsMessage={t("noServices", { ns: "shipping" })}
       />
+      {deletingService ? <DeleteServiceModal onCancel={() => setDeletingService(null)} /> : null}
     </>
   )
 }
